@@ -1,0 +1,44 @@
+﻿
+@model List<ZeroHunger.Models.Request>
+@{
+    ViewBag.Title = "Admin";
+}
+
+<h2>Admin</h2>
+
+
+
+
+
+
+
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Request Id</th>
+            <th>Restaurant Name</th>
+            <th>Food Name</th>
+            <th>Preservation Time</th>
+            <th>Quantity</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var user in Model)
+        {
+            <tr>
+                <td>
+                <td>@user.RequestId</td>
+                <td>@user.RestaurantName</td>
+                <td>@user.FoodName</td>
+                <td>@user.PreservationTime</td>
+                <td>@user.Quantity</td>
+                <a href="/product/addtocart/" class="btn btn-info">Add To Cart</a>
+                <a href="/product/edit/" class="btn btn-success">Edit</a>
+                <a href="/product/delete/" class="btn btn-danger">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
