@@ -1,0 +1,114 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Zero_Hunger_Database" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Collection_Request">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="RestaurantID" Type="Int32" />
+    <Property Name="EmployeeID" Type="Int32" />
+    <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Food_Details" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Employee" Relationship="Self.FK_Collection_Request_Employee" FromRole="Collection_Request" ToRole="Employee" />
+    <NavigationProperty Name="Restaurant" Relationship="Self.FK_Collection_Request_Restaurant" FromRole="Collection_Request" ToRole="Restaurant" />
+    <NavigationProperty Name="Histories" Relationship="Self.FK_History_Collection_Request" FromRole="Collection_Request" ToRole="History" />
+    <Property Name="Quantity" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Employee">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Phone_Number" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Collection_Request" Relationship="Self.FK_Collection_Request_Employee" FromRole="Employee" ToRole="Collection_Request" />
+  </EntityType>
+  <EntityType Name="History">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CollectionId" Type="Int32" Nullable="false" />
+    <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="Collection_Request" Relationship="Self.FK_History_Collection_Request" FromRole="History" ToRole="Collection_Request" />
+  </EntityType>
+  <EntityType Name="Restaurant">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Phone_Number" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Collection_Request" Relationship="Self.FK_Collection_Request_Restaurant" FromRole="Restaurant" ToRole="Collection_Request" />
+  </EntityType>
+  <EntityType Name="sysdiagram">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <Association Name="FK_Collection_Request_Employee">
+    <End Role="Employee" Type="Self.Employee" Multiplicity="0..1" />
+    <End Role="Collection_Request" Type="Self.Collection_Request" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Collection_Request">
+        <PropertyRef Name="EmployeeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Collection_Request_Restaurant">
+    <End Role="Restaurant" Type="Self.Restaurant" Multiplicity="0..1" />
+    <End Role="Collection_Request" Type="Self.Collection_Request" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Restaurant">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Collection_Request">
+        <PropertyRef Name="RestaurantID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_History_Collection_Request">
+    <End Role="Collection_Request" Type="Self.Collection_Request" Multiplicity="1" />
+    <End Role="History" Type="Self.History" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Collection_Request">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="History">
+        <PropertyRef Name="CollectionId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="ZeroDB" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Collection_Requests" EntityType="Self.Collection_Request" />
+    <EntitySet Name="Employees" EntityType="Self.Employee" />
+    <EntitySet Name="Histories" EntityType="Self.History" />
+    <EntitySet Name="Restaurants" EntityType="Self.Restaurant" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+    <AssociationSet Name="FK_Collection_Request_Employee" Association="Self.FK_Collection_Request_Employee">
+      <End Role="Employee" EntitySet="Employees" />
+      <End Role="Collection_Request" EntitySet="Collection_Requests" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Collection_Request_Restaurant" Association="Self.FK_Collection_Request_Restaurant">
+      <End Role="Restaurant" EntitySet="Restaurants" />
+      <End Role="Collection_Request" EntitySet="Collection_Requests" />
+    </AssociationSet>
+    <AssociationSet Name="FK_History_Collection_Request" Association="Self.FK_History_Collection_Request">
+      <End Role="Collection_Request" EntitySet="Collection_Requests" />
+      <End Role="History" EntitySet="Histories" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

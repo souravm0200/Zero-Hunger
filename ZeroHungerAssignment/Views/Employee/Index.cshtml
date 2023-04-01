@@ -1,0 +1,58 @@
+﻿@model IEnumerable<ZeroHungerAssignment.Models.Collection_Request>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Donations</h2>
+
+@if (Model.Count() == 0)
+{
+    <p>No records found</p>
+}
+else
+{
+    <table class="table">
+        <tr>
+            <th>
+                Restaurant Name
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Food_Details)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Quantity)
+            </th>
+            <th>
+                Address
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Restaurant.Address)
+            </th>
+            <th></th>
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Restaurant.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Food_Details)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Quantity)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Restaurant.Address)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Status)
+                </td>
+                <td>
+                    @Html.ActionLink("Distribute", "Distribute", new { id = item.Id })
+                </td>
+            </tr>
+        }
+    </table>
+}

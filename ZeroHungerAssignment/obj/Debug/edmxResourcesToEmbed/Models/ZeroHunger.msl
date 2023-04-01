@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="Zero_Hunger_DatabaseStoreContainer" CdmEntityContainer="ZeroDB">
+    <EntitySetMapping Name="Collection_Requests">
+      <EntityTypeMapping TypeName="Zero_Hunger_Database.Collection_Request">
+        <MappingFragment StoreEntitySet="Collection Request">
+          <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="RestaurantID" ColumnName="RestaurantID" />
+          <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="Food_Details" ColumnName="Food_Details" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Employees">
+      <EntityTypeMapping TypeName="Zero_Hunger_Database.Employee">
+        <MappingFragment StoreEntitySet="Employee">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Phone_Number" ColumnName="Phone Number" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Histories">
+      <EntityTypeMapping TypeName="Zero_Hunger_Database.History">
+        <MappingFragment StoreEntitySet="History">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="CollectionId" ColumnName="CollectionId" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Restaurants">
+      <EntityTypeMapping TypeName="Zero_Hunger_Database.Restaurant">
+        <MappingFragment StoreEntitySet="Restaurant">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="Phone_Number" ColumnName="Phone Number" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="sysdiagrams">
+      <EntityTypeMapping TypeName="Zero_Hunger_Database.sysdiagram">
+        <MappingFragment StoreEntitySet="sysdiagrams">
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+          <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="definition" ColumnName="definition" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

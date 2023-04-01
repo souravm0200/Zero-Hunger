@@ -1,0 +1,43 @@
+﻿@model IEnumerable<ZeroHungerAssignment.Models.History>
+
+@{
+    ViewBag.Title = "History";
+}
+
+<h2>History</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            Distributer Name
+        </th>
+        <th>
+            Food Name
+        </th>
+        <th>
+            Food Quantity
+        </th>
+        <th>
+            Distributio Date
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Collection_Request.Employee.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Collection_Request.Food_Details)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Collection_Request.Quantity)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date)
+            </td>
+        </tr>
+    }
+
+</table>

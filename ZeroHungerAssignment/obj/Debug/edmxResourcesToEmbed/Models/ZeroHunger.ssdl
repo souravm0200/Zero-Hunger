@@ -1,0 +1,108 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Zero_Hunger_Database.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Collection Request">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="RestaurantID" Type="int" />
+    <Property Name="EmployeeID" Type="int" />
+    <Property Name="Status" Type="varchar" MaxLength="50" />
+    <Property Name="Food_Details" Type="varchar" MaxLength="50" />
+    <Property Name="Quantity" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Employee">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="50" />
+    <Property Name="Phone Number" Type="varchar" MaxLength="50" />
+    <Property Name="Email" Type="varchar" MaxLength="50" />
+    <Property Name="Password" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="History">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CollectionId" Type="int" Nullable="false" />
+    <Property Name="Date" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Restaurant">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="50" />
+    <Property Name="Address" Type="varchar" MaxLength="50" />
+    <Property Name="Phone Number" Type="nvarchar" MaxLength="50" />
+    <Property Name="Email" Type="varchar" MaxLength="50" />
+    <Property Name="Password" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <Association Name="FK_Collection Request_Employee">
+    <End Role="Employee" Type="Self.Employee" Multiplicity="0..1" />
+    <End Role="Collection Request" Type="Self.Collection Request" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Collection Request">
+        <PropertyRef Name="EmployeeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Collection Request_Restaurant">
+    <End Role="Restaurant" Type="Self.Restaurant" Multiplicity="0..1" />
+    <End Role="Collection Request" Type="Self.Collection Request" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Restaurant">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Collection Request">
+        <PropertyRef Name="RestaurantID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_History_Collection Request">
+    <End Role="Collection Request" Type="Self.Collection Request" Multiplicity="1" />
+    <End Role="History" Type="Self.History" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Collection Request">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="History">
+        <PropertyRef Name="CollectionId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="Zero_Hunger_DatabaseStoreContainer">
+    <EntitySet Name="Collection Request" EntityType="Self.Collection Request" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Employee" EntityType="Self.Employee" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="History" EntityType="Self.History" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Restaurant" EntityType="Self.Restaurant" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Collection Request_Employee" Association="Self.FK_Collection Request_Employee">
+      <End Role="Employee" EntitySet="Employee" />
+      <End Role="Collection Request" EntitySet="Collection Request" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Collection Request_Restaurant" Association="Self.FK_Collection Request_Restaurant">
+      <End Role="Restaurant" EntitySet="Restaurant" />
+      <End Role="Collection Request" EntitySet="Collection Request" />
+    </AssociationSet>
+    <AssociationSet Name="FK_History_Collection Request" Association="Self.FK_History_Collection Request">
+      <End Role="Collection Request" EntitySet="Collection Request" />
+      <End Role="History" EntitySet="History" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
